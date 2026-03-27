@@ -13,6 +13,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.gustavofelipe.treino.ui.createRoutine.CreateRoutineScreen
+import com.gustavofelipe.treino.ui.detail.DetailScreen
 import com.gustavofelipe.treino.ui.home.HomeScreen
 import com.gustavofelipe.treino.ui.theme.TreinoTheme
 
@@ -29,6 +31,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     NavHost(navController = navController, startDestination = "home") {
+
                         composable("home") {
                             HomeScreen(
                                 onNavigateToCreate = {
@@ -41,7 +44,11 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("create") {
-
+                            CreateRoutineScreen(
+                                onNavigateBack = {
+                                    navController.popBackStack()
+                                }
+                            )
                         }
 
                         composable(
@@ -50,6 +57,25 @@ class MainActivity : ComponentActivity() {
                         ) { backStackEntry ->
                             val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
 
+                            DetailScreen(
+                                routineId = routineId,
+                                onNavigateBack = { navController.popBackStack() },
+                                onNavigateToEdit = { id ->
+                                    navController.navigate("edit/$id")
+                                }
+                            )
+                        }
+
+                        composable(
+                            route = "edit/{routineId}",
+                            arguments = listOf(navArgument("routineId") { type = NavType.IntType })
+                        ) { backStackEntry ->
+                            val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
+
+                            CreateRoutineScreen(
+                                routineIdToEdit = routineId,
+                                onNavigateBack = { navController.popBackStack() }
+                            )
                         }
                     }
                 }
