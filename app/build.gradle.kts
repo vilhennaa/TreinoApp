@@ -56,18 +56,15 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    implementation("androidx.compose.material:material-icons-extended")
 
-    // 1. Navegação
     implementation(libs.androidx.navigation.compose)
 
-    // 2. Koin (Injeção de Dependência)
     implementation(libs.koin.androidx.compose)
 
-    // 3. Room (Banco de Dados)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
-    // 4. Gson (Conversão de dados)
     implementation(libs.gson)
 }

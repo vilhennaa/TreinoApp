@@ -4,6 +4,8 @@ import androidx.room.Room
 import com.gustavofelipe.treino.data.AppDatabase
 import com.gustavofelipe.treino.data.WorkoutRepository
 import com.gustavofelipe.treino.data.WorkoutRepositoryImpl
+import com.gustavofelipe.treino.ui.createRoutine.CreateRoutineViewModel
+import com.gustavofelipe.treino.ui.detail.DetailViewModel
 import com.gustavofelipe.treino.ui.home.HomeViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -31,4 +33,8 @@ val appModule = module {
     single<WorkoutRepository> { WorkoutRepositoryImpl(get()) }
 
     viewModel { HomeViewModel(get()) }
+
+    viewModel { CreateRoutineViewModel(get()) }
+
+    viewModel { DetailViewModel(get()) }
 }

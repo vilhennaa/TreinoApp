@@ -20,7 +20,8 @@ interface WorkoutDao {
     // Insere uma nova ficha. Se já existir uma com o mesmo ID, ele substitui (atualiza).
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRoutine(routine: WorkoutRoutine)
-
+    @Query("SELECT * FROM workout_routines WHERE id = :id") // Verifique se o nome da tabela é esse mesmo
+    suspend fun getRoutineById(id: Int): WorkoutRoutine?
     // Deleta uma ficha específica
     @Delete
     suspend fun deleteRoutine(routine: WorkoutRoutine)

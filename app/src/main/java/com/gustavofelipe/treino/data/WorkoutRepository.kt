@@ -3,18 +3,15 @@ package com.gustavofelipe.treino.data
 import com.gustavofelipe.treino.domain.model.WorkoutRoutine
 import kotlinx.coroutines.flow.Flow
 
-/**
- * A Interface define "O QUE" o repositório faz (Contrato).
- */
+
 interface WorkoutRepository {
     fun getAllRoutines(): Flow<List<WorkoutRoutine>>
     suspend fun saveRoutine(routine: WorkoutRoutine)
     suspend fun deleteRoutine(routine: WorkoutRoutine)
+    suspend fun getRoutineById(id: Int): WorkoutRoutine?
 }
 
-/**
- * A Implementação define "COMO" o repositório faz (Chamando o DAO).
- */
+
 class WorkoutRepositoryImpl(
     private val dao: WorkoutDao
 ) : WorkoutRepository {
@@ -29,5 +26,9 @@ class WorkoutRepositoryImpl(
 
     override suspend fun deleteRoutine(routine: WorkoutRoutine) {
         dao.deleteRoutine(routine)
+    }
+
+    override suspend fun getRoutineById(id: Int): WorkoutRoutine? {
+        return dao.getRoutineById(id)
     }
 }
