@@ -2,6 +2,7 @@ package com.gustavofelipe.treino.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.FitnessCenter
 import androidx.compose.material.icons.rounded.List
@@ -21,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -139,13 +142,18 @@ fun HomeScreen(
         }
     }
 }
-
-// O WorkoutCard continua exatmente igual ao que já tínhamos:
 @Composable
 fun WorkoutCard(
     routine: WorkoutRoutine,
     onClick: () -> Unit
 ) {
+    val isCompletedToday = android.text.format.DateUtils.isToday(routine.lastCompletedDate)
+    val isDark = isSystemInDarkTheme()
+
+    val greenBackground = if (isDark) Color(0xFF1B5E20).copy(alpha = 0.3f) else Color(0xFFE8F5E9)
+    val greenIconBg = if (isDark) Color(0xFF2E7D32) else Color(0xFFC8E6C9)
+    val greenText = if (isDark) Color(0xFFA5D6A7) else Color(0xFF1B5E20)
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -153,7 +161,7 @@ fun WorkoutCard(
             .clickable { onClick() },
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
+            containerColor = if (isCompletedToday) greenBackground else MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
@@ -167,15 +175,15 @@ fun WorkoutCard(
                 modifier = Modifier
                     .size(48.dp)
                     .background(
-                        color = MaterialTheme.colorScheme.primaryContainer,
+                        color = if (isCompletedToday) greenIconBg else MaterialTheme.colorScheme.primaryContainer,
                         shape = CircleShape
                     ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Rounded.FitnessCenter,
+                    imageVector = if (isCompletedToday) androidx.compose.material.icons.Icons.Rounded.CheckCircle else androidx.compose.material.icons.Icons.Rounded.FitnessCenter,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    tint = if (isCompletedToday) greenText else MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
 
@@ -186,21 +194,22 @@ fun WorkoutCard(
                     text = routine.name,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = if (isCompletedToday) greenText else MaterialTheme.colorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "${routine.exercises.size} exercícios listados",
+                    text = if (isCompletedToday) "Treino concluído hoje! 💪" else "${routine.exercises.size} exercícios listados",
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = if (isCompletedToday) greenText.copy(alpha = 0.8f) else MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontWeight = if (isCompletedToday) FontWeight.Bold else FontWeight.Normal
                 )
             }
 
             Icon(
-                imageVector = Icons.Rounded.ChevronRight,
+                imageVector = androidx.compose.material.icons.Icons.Rounded.ChevronRight,
                 contentDescription = "Ver detalhes",
-                tint = MaterialTheme.colorScheme.outline
+                tint = if (isCompletedToday) greenText else MaterialTheme.colorScheme.outline
             )
         }
     }

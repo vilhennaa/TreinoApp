@@ -18,6 +18,7 @@ data class CreateRoutineUiState(
     val sets: String = "",
     val reps: String = "",
     val videoUrl: String = "",
+    val restTime: String = "",
     val addedExercises: List<Exercise> = emptyList(),
     val errorMessage: String? = null
 )
@@ -36,6 +37,7 @@ class CreateRoutineViewModel(
     fun updateSets(sets: String) = _uiState.update { it.copy(sets = sets) }
     fun updateReps(reps: String) = _uiState.update { it.copy(reps = reps) }
     fun updateVideoUrl(url: String) = _uiState.update { it.copy(videoUrl = url) }
+    fun updateRestTime(time: String) = _uiState.update { it.copy(restTime = time) }
 
     fun loadRoutineForEditing(id: Int) {
         viewModelScope.launch {
@@ -65,7 +67,8 @@ class CreateRoutineViewModel(
             name = currentState.exerciseName,
             sets = currentState.sets.toIntOrNull() ?: 0,
             reps = currentState.reps,
-            videoUrl = currentState.videoUrl
+            videoUrl = currentState.videoUrl,
+            restTime = currentState.restTime
         )
 
         _uiState.update {
@@ -75,6 +78,7 @@ class CreateRoutineViewModel(
                 sets = "",
                 reps = "",
                 videoUrl = "",
+                restTime = "",
                 errorMessage = null
             )
         }
@@ -106,6 +110,7 @@ class CreateRoutineViewModel(
             onSuccess()
         }
     }
+
     fun removeExercise(exerciseToRemove: Exercise) {
         _uiState.update { currentState ->
             currentState.copy(
@@ -113,5 +118,6 @@ class CreateRoutineViewModel(
             )
         }
     }
+
     fun clearError() = _uiState.update { it.copy(errorMessage = null) }
 }

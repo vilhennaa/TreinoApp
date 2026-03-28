@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.gustavofelipe.treino.ui.active.ActiveWorkoutScreen
 import com.gustavofelipe.treino.ui.createRoutine.CreateRoutineScreen
 import com.gustavofelipe.treino.ui.detail.DetailScreen
 import com.gustavofelipe.treino.ui.home.HomeScreen
@@ -62,7 +63,8 @@ class MainActivity : ComponentActivity() {
                                 onNavigateBack = { navController.popBackStack() },
                                 onNavigateToEdit = { id ->
                                     navController.navigate("edit/$id")
-                                }
+                                },
+                                onStartWorkout = { id -> navController.navigate("activeWorkout/$id") }
                             )
                         }
 
@@ -75,6 +77,19 @@ class MainActivity : ComponentActivity() {
                             CreateRoutineScreen(
                                 routineIdToEdit = routineId,
                                 onNavigateBack = { navController.popBackStack() }
+                            )
+                        }
+                        composable(
+                            route = "activeWorkout/{routineId}",
+                            arguments = listOf(navArgument("routineId") { type = NavType.IntType })
+                        ) { backStackEntry ->
+                            val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
+
+                            ActiveWorkoutScreen(
+                                routineId = routineId,
+                                onFinishWorkout = {
+                                    navController.popBackStack("home", inclusive = false)
+                                }
                             )
                         }
                     }
