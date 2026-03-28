@@ -147,10 +147,19 @@ fun CreateRoutineScreen(
                             OutlinedTextField(
                                 value = uiState.reps,
                                 onValueChange = { viewModel.updateReps(it) },
-                                label = { Text("Repetições") },
+                                label = { Text("Reps") },
                                 modifier = Modifier.weight(1f),
                                 singleLine = true,
-                                shape = RoundedCornerShape(12.dp)
+                                shape = RoundedCornerShape(8.dp)
+                            )
+                            OutlinedTextField(
+                                value = uiState.restTime,
+                                onValueChange = { viewModel.updateRestTime(it) },
+                                label = { Text("Descanso") },
+                                modifier = Modifier.weight(1.2f),
+                                singleLine = true,
+                                shape = RoundedCornerShape(12.dp),
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                             )
                         }
 

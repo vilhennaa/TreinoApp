@@ -12,5 +12,6 @@ data class WorkoutRoutine(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
     val dayOfWeek: String,
-    val exercises: List<Exercise> // A lista com os exercícios que pertencem a esta ficha
+    val exercises: List<Exercise>, // A lista com os exercícios que pertencem a esta ficha
+    val lastCompletedDate: Long = 0L
 )

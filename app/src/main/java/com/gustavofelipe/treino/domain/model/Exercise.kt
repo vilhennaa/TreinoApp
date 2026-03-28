@@ -11,5 +11,6 @@ data class Exercise(
     val sets: Int,
     val reps: String, // Usamos String porque pode ser repetições ("12") ou tempo ("60 seg")
     val videoUrl: String,
-    val notes: String = ""
+    val notes: String = "",
+    val restTime: String = ""
 )
