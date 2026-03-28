@@ -84,8 +84,11 @@ fun ActiveWorkoutScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         Text("Hora de Descansar", style = MaterialTheme.typography.titleLarge)
 
+                        val minutes = (uiState.restTimer / 60).toString().padStart(2, '0')
+                        val seconds = (uiState.restTimer % 60).toString().padStart(2, '0')
+
                         Text(
-                            text = "00:${uiState.restTimer.toString().padStart(2, '0')}",
+                            text = "$minutes:$seconds",
                             fontSize = 80.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
