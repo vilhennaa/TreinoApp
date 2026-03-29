@@ -31,3 +31,7 @@ Para executar os testes localmente:
 1. Abra o projeto no Android Studio.
 2. Navegue até o diretório `src/test/java/com/gustavofelipe/treino/ui/createRoutine/`.
 3. Clique com o botão direito sobre o arquivo `CreateRoutineViewModelTest.kt` e selecione **"Run"**.
+
+
+## Link video demostrativo
+* https://youtu.be/T4xiPfkzAqQ
