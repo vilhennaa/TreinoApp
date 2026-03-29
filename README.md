@@ -1,5 +1,7 @@
 # 🏋️‍♂️ TreinoApp
 
+Alunos: Felipe Diffonte Schmidt | Gustavo Cotovicz
+
 O **TreinoApp** é um aplicativo Android nativo projetado para simplificar a criação, gestão e execução de rotinas de exercícios. O aplicativo permite que o usuário crie fichas altamente personalizadas e anexe links de vídeos de referência (como YouTube ou Instagram) diretamente aos exercícios, garantindo um guia visual em tempo real para a execução correta dos movimentos.
 
 ## ✨ Funcionalidades Principais
